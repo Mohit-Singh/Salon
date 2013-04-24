@@ -1,0 +1,84 @@
+<link href='css/login.css' rel='stylesheet' />
+<script src='js/login.js'></script>
+<div id="loginFormMain">
+    <div id="formWrapper"> <!-- formWrapper Starts here -->
+       
+       <div id="allForms" >
+            <ul id="formMenu"> <!-- formMenu Starts here -->
+                <li><a href="#admin" class="admin" title="Login as an Admin">Admin</a></li>
+                <li class="client"><a href="#client" class="client" title="Login as a Client">Client</a></li>
+                <li><a href="#visitor" class="visitor" title="Login as a Visitor">Visitor</a></li>
+            </ul> <!-- formMenu Ends here -->
+           
+            <div id="formContent"> <!-- formContent Starts here -->
+                <div id="admin" class="hide"> <!-- Admin area Starts here -->
+                 <form id="loginForm" name="login" action="" method="get">
+                    <label for="username" class="if-no-placeholder">Username</label><input type="text" name="username" placeholder="Username" />
+                    <label for="password" class="if-no-placeholder">Password</label><input type="password" name="password" placeholder="Password" />
+                        <input type="submit" value="Login" />
+                    <label for="remember"><p>Keep Login</p><input type="checkbox" name="remember" /></label>
+                 </form>
+                </div> <!-- Admin area Ends here -->
+                
+                <div id="client" class="hide"> <!-- Client area Starts here -->
+                <form id="loginForm" name="login" action="./Controller/controller.php?action=clientLogin" method="post">
+                    <label for="username" class="if-no-placeholder">Username</label><input type="text" name="username" placeholder="Username" />
+                    <label for="password" class="if-no-placeholder">Password</label><input type="password" name="password" placeholder="Password" />
+                        <input type="submit" value="Login" />
+                    <label for="remember" ><p>Keep Login</p><input type="checkbox" name="remember" /></label>
+                </form>
+                        
+                    <ul id="clientOptions"> <!-- clientOptions Starts here -->
+                        <li><a href="#requestAccount" class="requestAccount" title="Request an Account">Request Account</a></li>
+                        <li><a href="#forgotPassword" class="forgotPassword" title="Retrieve your Password">Forgot Password?</a></li>                    
+                    </ul> <!-- clientOptions Ends here -->
+                        
+                </div> <!-- Client area Ends here -->
+                
+                    <div id="requestAccount" class="hide"> <!-- requestAccount area Starts here -->
+                    <form id="loginForm" name="login" action="./Controller/controller.php?action=clientReg" method="post">
+                        <label for="email"  class="if-no-placeholder">E-Mail</label><input type="text" name="user_name" placeholder="Email" />
+                        <label for="firstName" class="if-no-placeholder">First Name</label><input type="text" name="first_name" placeholder="First Name" />
+                        <label for="lastName" class="if-no-placeholder">Last Name</label><input type="text" name="last_name" placeholder="Last Name" />
+                        <label for="userType"  class="if-no-placeholder">User Type</label>
+                            <input type="radio" name="userType" value="Visitor" style="float: left" checked="checked"/><label style="float: left">Visitor</label>                        
+                            <input type="radio" name="userType" value="Owner" style="float: left"/><label style="float: left">Owner</label>
+                            <input type="submit" value="Submit Request" />
+                    </form>
+                    </div> <!-- requestAccount area Ends here -->
+                    
+                    <div id="forgotPassword" class="hide"> <!-- forgetPassword area Starts here -->
+                    <form id="loginForm" name="login" action="" method="get">
+                        <label for="email"  class="if-no-placeholder">E-Mail</label><input type="text" name="email" class="forgotInput" placeholder="Enter your Email Address" />
+                            <input type="submit" value="Send" />
+                    </form>
+                    </div> <!-- forgetPassword area Ends here -->
+                
+                <div id="visitor" class="hide"> <!-- Visitor area Starts here -->
+                <form id="loginForm" name="login" action="" method="get">
+                    <label for="username"  class="if-no-placeholder">Username</label><input type="text" name="username" placeholder="Username" />
+                    <label for="password"  class="if-no-placeholder">Password</label><input type="password" name="password" placeholder="Password" />
+                        <input type="submit" value="Login" />
+                </form>
+                    <ul id="clientOptions"> <!-- clientOptions Starts here -->
+                        <li><a href="#requestAccount" class="requestAccount" title="Request an Account">Request Account</a></li>
+                        <li><a href="#forgotPassword" class="forgotPassword" title="Retrieve your Password">Forgot Password?</a></li>                    
+                    </ul> <!-- clientOptions Ends here -->                
+                </div> <!-- Visitor area Ends here -->
+                
+                <div id="contact" class="hide"> <!-- Contact area Starts here -->
+                <form id="loginForm" name="login" action="" method="get">
+                    <label for="email" class="if-no-placeholder">Email</label><input type="text" name="email" placeholder="Enter your email address" />
+                    <label for="description" class="if-no-placeholder">Description</label><textarea name="description" placeholder="What seems to be the Problem?"></textarea>
+                        <input type="submit" value="Send" />
+                </form>
+                
+                </div> <!-- Contact area Ends here -->
+            </div> <!-- formContent Ends here -->
+      
+            <ul id="contactMenu"> <!-- contactMenu Starts here -->
+                <li><a href="#contact" class="contact" title="Having Problems">Having Problems Logging in?</a></li>
+            </ul> <!-- contactMenu Ends here -->
+          </div>
+    </div> <!-- formWrapper Ends here -->
+</div>

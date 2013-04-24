@@ -1,0 +1,119 @@
+#myForm table{
+	border: solid black 2px;
+	width: 50%;
+	background-color:#AEAAB5;
+	}
+#myForm table td{
+ 
+	border-bottom: solid #555555 1px;
+	border-right: solid #555555 1px;
+	border-top: solid #555555 1px;
+	}
+#myForm h1{
+	background-color: #555555;
+	color:#ffffff;
+	width: 50%;
+}
+#myForm{
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#tempCreator
+{
+	border: solid black 2px;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;	
+}
+#myForm label
+{
+	background-color: #555555;
+	color:#ffffff;
+}
+input[type=button],input[type=submit] {
+	-webkit-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.2) 0 1px 0 0;
+	border-bottom-color:#555555;
+	background-color:#555555;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	color:#ffffff;
+	font-family:'Verdana',Arial,sans-serif;
+	font-size:14px;
+	text-shadow:#b2e2f5 0 1px 0;
+	padding:5px
+}
+#siteHeading h1
+{
+	background-color: #555555;
+	color:#ffffff;
+	width: 50%;
+}
+#siteHeading 
+{
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#searchTempateTable
+{
+	border: double black 3px;
+}
+#searchTempateTable #even
+{
+	background-color: #A6DEED;
+	color:#ffffff;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#searchTempateTable #odd
+{
+	background-color: #E3DECA;
+	color:#ffffff;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#searchTempateTable #tlbHeader
+{
+	background-color: #2398EB;
+	color:#ffffff;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#showTemplateData table #even
+{
+	background-color: #A6DEED;
+	color:#ffffff;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#showTemplateData table #odd
+{
+	background-color: #E3DECA;
+	color:#ffffff;
+	font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+	font-weight: normal;
+	letter-spacing: .2em;
+	margin:0px;
+}
+#showTemplateData table
+{
+	border: double black 3px;
+}
+body{
+	background-image: url('../images/url.jpg');
+}

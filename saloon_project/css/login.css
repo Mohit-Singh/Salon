@@ -1,0 +1,327 @@
+/*    Advanced Login HTML, CSS/CSS3 and JavasSript Form v2.2
+
+    Author: Vlad Radulescu
+    Author Website: http://vlad.dyndns.org
+            
+    Description:
+        A Login/Registration Form with beautiful jQuery transition and fallbacks to CSS in case the user has JavaScript
+        turned off.
+    
+    Content: 
+        Admin Login: (Simple) Username, Password
+        Client Login: (Advanced) Username, Password, Pin Code ( which is optional ) , Forgot Password, Request Account
+            CL - Request Account: Username, Password + Password Confirmation, Email, Company
+            CL - Forgot Password: Email Address
+        Visitor Login: (Simple) Username, Password, Pin Code ( which is optional )
+    
+    Supported Browsers:
+        Mozzila Firefox: 3.0 +
+        Opera: 11.0 +
+        Safari: Not tested, yet.
+        Chrome: 10.0 +
+        Internet Explorer: 9.0 + (Inlcude ie.css)
+
+    Version Informations:
+        v1.0 - Simple Login Form with Username, Password and a submit Button
+        v1.1 - Same as v1.0 but with a better HTML and CSS Code
+        v2.0 - A more Advanced Form with 5 Categories.. Admin, Client ( Forgot Password, Registration Form ) Visitor
+        v2.1 - Now with jQuery and fallback to CSS in case the user has JavaScript off
+        v2.2 - Same as v2.1 but with a Contact page in case the Form doesn't work
+        v2.3 - The form doesn't need Refresh on Submit, AJAX is taking care from now on
+
+*/
+
+/* Reset Styles */
+
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li,label { display: inline-table;
+  	font: bold 15px/1 'Sigmar One', Verdana, Arial;
+	color: #831608;
+    }
+    
+        .if-no-placeholder { /* Will appear only if the browser doesn't support placeholders */
+            float: left;
+            /*font: bold 11px/100% Tahoma, Geneva, sans-serif;*/
+            color: #305183;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            font-family:  'Hoefler Text', Georgia, 'Times New Roman', serif;
+            font-weight: normal;
+            letter-spacing: .2em;            
+        }
+
+/*#loginFormMain {
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(top, #546673, #1f242a);
+    background-image: -moz-radial-gradient(50% 50%, farthest-side, #546673, #1f242a);
+    background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 700, from(#546673), to(#1f242a));
+    background-image: -o-linear-gradient(#1f242a, #546673);
+                      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#546673', endColorstr='#1f242a')";
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#546673', endColorstr='#1f242a');
+}*/
+/*
+    body {
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+    }*/
+    
+        #formWrapper {
+            margin: 10% auto; 
+            width: 400px;
+        }
+        
+            /* Form General Style */
+    
+            #allForms {
+                width: 100%;
+                float: left;
+                background: #fff;
+                border-radius: 10px;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                box-shadow: 0 0 0 8px #57636d;
+                -moz-box-shadow: 0 0 0 8px #57636d;
+                -webkit-box-shadow: 0 0 0 8px #57636d;
+            }
+            
+                #formContent {
+                    width: 352px;
+                    float: left;
+                    padding: 23px;
+                    border: 1px solid #305183;
+                    border-top: none;
+                    border-bottom: none;
+                }
+            
+                /* Form Menu Style */
+            
+                ul#formMenu, ul#contactMenu {
+                    width: 100%;
+                    float: left;
+                    list-style: none;    
+                    background: #617798;
+                    border-radius: 8px 8px 0 0;
+                }
+                    ul#contactMenu { border-radius: 0 0 8px 8px; }
+
+                ul#formMenu li, ul#contactMenu li {    
+                    width: 33%;
+                    float: left;
+                    border-left: 1px solid #305183;
+                    border-right: 1px solid #305183;
+                    border-radius: 8px 8px 0 0;
+                    box-shadow: 0 1px 0 #305183;
+                }
+                    ul#contactMenu li {
+                        width: 99.4%;
+                        border-radius: 0 0 8px 8px;
+                        box-shadow: inset 0 1px 0 #305183;
+                    }
+                ul#formMenu li.client { border: none; }
+
+                ul#formMenu li:hover, ul#formMenu li.active {
+                    box-shadow: none !important;
+                    background: #fff;
+                    background: rgba(0,0,0,0.1) 0px 0px 8px;
+                    background: -moz-linear-gradient(top, #fff, #eee 1px, #fff 25px);
+                    background: -webkit-gradient(linear, left top, left 25, from(#fff), color-stop(4%, #eee), to(#fff));
+                    background: -o-linear-gradient(#eee, #fff);
+                }
+                
+                ul#contactMenu li:hover { background: #5F7286; }
+
+                    ul#formMenu li a,
+                    ul#contactMenu li a {
+                        display: block;
+                        padding: 15px 0;
+                        font: bold 18px/100% Tahoma, Geneva, sans-serif;
+                        color: #fff;
+                        text-decoration: none;
+                        text-align: center;
+                        text-shadow: #305183 0 1px 0;
+                    }
+                        ul#contactMenu li a {
+                            padding: 8px;
+                            font: bold 14px/100% Tahoma, Geneva, sans-serif;
+                        }
+                    
+                    ul#formMenu li a:hover, ul#formMenu li.active a { 
+                        color: #617798; 
+                        text-shadow: none;
+                    }
+    
+                /* Form Content Style */
+                    
+                .hide { display: none; }
+
+                    #admin:target, #client:target, #visitor:target, 
+                    #requestAccount:target, #forgotPassword:target, #contact:target {
+                        display: block;
+                    }
+                
+                        /* Client Menu Options */
+                
+                        ul#clientOptions {
+                            width: 150px;
+                            height: 44px;
+                            float: left;
+                        }
+                        
+                            ul#clientOptions li a {
+                                display: block;
+                                margin: 5px 0;
+                                font: normal 12px/100% Tahoma, Geneva, sans-serif;
+                                text-transform: uppercase;
+                                text-decoration: none;
+                                color: #617798;
+                            } 
+                            
+                            ul#clientOptions li a:hover { color: #305183; }
+            
+        /* Form Fields */
+        
+            /* Input Fields */
+        
+            input[type="text"], input[type="password"], textarea {
+                width: 93%;
+                font: normal 13px/100% Tahoma, Geneva, sans-serif;
+                color: #c4c4c4;
+                margin: 0 0 12px 0;
+                padding: 13px 12px 13px 11px;
+                border: 1px solid #e5e5e5;
+                background: rgba(0,0,0,0.1) 0px 0px 8px;
+                background: -moz-linear-gradient(top, #fff, #eee 1px, #fff 25px);
+                background: -webkit-gradient(linear, left top, left 25, from(#fff), color-stop(4%, #eee), to(#fff));
+                background: -o-linear-gradient(#eee, #fff);
+                            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff')";
+                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#eeeeee', endColorstr='#ffffff');
+            }
+            
+            input[disabled] { background: #dfdfdf; }
+
+                input:hover, input:focus,
+                textarea:hover, textarea:focus {
+                    border-color: #c9c9c9;
+                    -moz-box-shadow: rgba(0,0,0,0.15) 0px 0px 8px;
+                    -webkit-box-shadow: rgba(0,0,0,0.15) 0px 0px 8px;
+                    -o-box-shadow: rgba(0,0,0,0.15) 0px 0px 8px;
+                }
+                
+                input:focus, textarea:focus { border-color: #999999 !important; }
+                
+                    input:-webkit-input-placeholder,
+                    textarea:-webkit-textarea-placeholder { color: #c4c4c4; }
+                    input:-moz-placeholder,
+                    textarea:-moz-placeholder { color: #c4c4c4; }
+            
+            /* Label Fields (Keep Login) */
+            
+            label {
+                margin: 9px;
+                float: right;
+            }
+            
+                input[type="checkbox"] {
+                    margin: 6px;
+                     /* Only for Opera, sadly */
+                    border: 1px solid #305183;
+                    background: #617798;
+                    color: #fff;
+                }
+
+                    label p {
+                        margin: 7px 0;
+                        float: left;
+                        font: normal 11px/100% Tahoma, Geneva, sans-serif;
+                        text-transform: uppercase;
+                        color: #617798;
+                    }
+                    
+            /* Textareas */
+            
+            textarea {
+                width: 94.7%;
+                padding: 13px 6px 13px 11px !important;
+                resize: vertical;
+                min-height: 70px;
+                max-height: 150px;
+            }
+
+            /* Buttons */
+
+            input[type="submit"] {
+                float: right;
+                padding: 12px 17px 11px 17px;
+                font: bold 14px/100% Tahoma, Geneva, sans-serif;
+                color: #fff;
+                text-shadow: #305183 0 1px 0;
+                cursor: pointer;
+                border: 1px solid #305183;
+                background: #617798;
+                background: rgba(0,0,0,0.1) 0px 0px 8px;
+                background: -moz-linear-gradient(top, #999, #617798 1px, #617798 25px);
+                background: -webkit-gradient(linear, left top, left 25, from(#999), color-stop(4%, #617798), to(#617798));
+            }
+
+                input[type="submit"]:hover, input[type="submit"]:focus { border-color: #142d52; }
+                input[type="submit"]:active { background: #617789; }
+                
+                /* Forgot Password special Stylings */
+                
+                input[type="text"].forgotInput {
+                    width: 65%;
+                    margin-bottom: 0;
+                }
+                
+/* Hacks for Different Browsers */
+
+    /* Opera */
+    
+        /* v9 - */
+        
+        html:first-child .if-no-placeholder { display: block !important; }
+    
+        /* v10+ */
+        
+        @media all and (-webkit-min-device-pixel-ratio:10000), not all and (-webkit-min-device-pixel-ratio:0) {
+
+            /* Contact Form Styles */
+
+            ul#contactMenu li { width: 398px; }
+
+            /* Buttons */
+            
+            input[type="submit"] { padding: 13px 20px 12px 20px !important; }
+            
+            /* Textareas */
+            
+            textarea { width: 333px !important; }
+         }
+
+    /* Internet Explorer 7 Only */
+
+    *+html .if-no-placeholder { display: block !important; }
+            
+    /* Chrome */
+    
+    @media not screen and (orientation) {
+
+        ul#formMenu li.client { width: 34%;    }
+        
+        ul#contactMenu li { width: 100%; }
+        
+        ul#clientOptions li a { margin: 4px 0; } 
+    
+        /* Buttons */
+        
+        input[type="submit"] {
+            margin: 0;
+            padding: 14px 20px 14px 20px !important;
+        }
+    }
