@@ -6,6 +6,7 @@ class SalonController
 {
     private $_objSalonModel;
     private $_clientData;
+    private $_visitorData;
     private $_clientSalonData;
     private $_eventsdata;
     
@@ -44,6 +45,110 @@ class SalonController
         {
             $this->getCalEvents();
         }        
+        if($_REQUEST['action']=="visitorLogin")
+        {
+        	$this->visitorLogin();
+        }        
+        if($_REQUEST['action']=="getAllSalon")
+        {
+        	$this->getAllSalon();
+        }        
+        if($_REQUEST['action']=="getAllSalonService")
+        {
+        	$this->getAllSalonService();
+        }        
+        if($_REQUEST['action']=="visitorAvailableSlot")
+        {
+        	$this->visitorAvailableSlot();
+        }        
+    }
+    
+    private function visitorAvailableSlot()
+    {
+    	
+    	
+    	//$aaa=mktime($_POST['slotDate']);
+    	$str=strtotime($_POST['slotDate']);
+//     	$newdate=date('Y-M-d H:m:s',$str);
+//     	$newTime=strtotime($newdate)+mktime(1800);
+//     	$end=date('Y-M-d H:m:s',$newTime);
+//     	echo $str;
+//     	echo "<br>";
+//     	echo $newdate;
+//     	echo "<br>";
+//     	echo $newTime;
+//     	echo "<br>";
+//     	echo $end;
+    	//$end=strtotime('2013-Apr-16 00:34:00');
+    	//$end=$str+70;
+    	//$//end=date('Y-M-d H:i:s', strtotime('+6',$str));
+//     	echo $str."<br>";
+//     	echo $end;
+//     	echo "<br>";
+//     	echo date('Y-M-d H:m:s',$str);
+//     	echo "<br>";
+//     	//echo date('Y-M-d H:m:s',$end);
+	echo $str;
+		$end=0;
+    	foreach($_POST['reqSlotTime'] as $value)
+     	{
+     		$end +=$value;
+     	}
+     	$slot=$this->_objSalonModel->availableSlot($str);
+     	
+     	$abc=$slot[0]["cal_start_time"];
+     	echo "<br>";
+     	echo $abc;
+     	echo "<br>";
+     	echo date('Y-M-d H:i:s',$abc);
+     	echo "<br>";
+     	$dfg=$abc+1800;
+     	echo $dfg."<br>";
+     	echo date('Y-M-d H:i:s',$dfg);
+     	
+     	echo "<pre>";
+    	print_r($slot);
+    	die;
+    }
+    
+    private function getAllSalonService()
+    {
+    	$result=$this->_objSalonModel->getAllService();
+    	echo json_encode($result);    	
+    }
+    
+    private function getAllSalon()
+    {
+    	$result=$this->_objSalonModel->getAllSalonDb();
+    	echo json_encode($result);
+    }
+    
+    private function visitorLogin()
+    {
+    	$this->_visitorData=$this->_objSalonModel->visitorLoginRequest();
+    	if($this->_visitorData)
+    	{
+    		if(md5($_POST['password'])==$this->_visitorData[0]['password'])
+    		{
+;
+    			$_SESSION['visitorData']=$this->_visitorData;
+    			print_r($_SESSION['visitorData']);
+    			//die;
+    			header("location:../index.php?visitorArea");
+    			
+    		}
+    		else
+    		{
+    			//login failed
+    			
+    			header("location:../index.php?error#visitor");
+    		}
+    	}
+    	else
+    	{
+    		//user not found
+    		header("location:../index.php?error#visitor");
+    	}    	  	
     }
     
     private function getCalEvents()

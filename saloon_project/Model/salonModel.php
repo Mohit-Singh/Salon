@@ -71,6 +71,33 @@ class SalonModel extends model{
 
         //echo $this->db->lastQuery();
     }
+    public function getAllSalonDb()
+    {
+    	$this->db->Fields(array("id","saloon_name"));
+    	$this->db->From("saloon_master");
+    	$this->db->Select();
+    	$result = $this->db->resultArray();
+    	return $result;
+    }
+    
+    public function availableSlot($start)
+    {
+    	$this->db->where(array("saloon_id='".$_POST['salonId']."' AND cal_start_time > ".$start ),true);
+    	$this->db->From("available_slot");
+    	$this->db->Select();
+    	$result = $this->db->resultArray();
+    	return $result;
+    }
+    
+    public function getAllService()
+    {
+    	$this->db->Fields(array("service","duration"));
+    	$this->db->where(array("saloon_id='".$_POST['salonId']."'"),true);
+    	$this->db->From("saloon_services");
+    	$this->db->Select();
+    	$result = $this->db->resultArray();
+    	return $result;
+    }
     
     public function salonInfoSave()
     {
@@ -101,11 +128,24 @@ class SalonModel extends model{
     public function clientLoginRequest()
     {
         
-        $this->db->where(array("user_name='".$_POST['username']."' AND status='A'"),true);
+        $this->db->where(array("user_name='".$_POST['username']."' AND status='A' AND user_type='O'"),true);
         $this->db->From("users_master");
         $this->db->Select();
         $result = $this->db->resultArray();
         return $result;
+    }
+    
+    public function visitorLoginRequest()
+    {
+    
+    	$this->db->where(array("user_name='".$_POST['username']."' AND status='A' AND user_type='C'"),true);
+    	$this->db->From("users_master");
+    	$this->db->Select();
+    	$result = $this->db->resultArray();
+    	//echo $this->db->lastQuery();
+    	//print_r($result);
+    	//die;
+    	return $result;
     }
     public function clientSalonFetch($userId)
     {
@@ -114,6 +154,7 @@ class SalonModel extends model{
         $this->db->Select();
         $result = $this->db->resultArray();
         return $result;
+        
     }
     
 }
