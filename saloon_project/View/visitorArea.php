@@ -71,7 +71,7 @@ function chkSlot(obj)
 	</select>
 <form id="selectForm" action="./Controller/controller.php?action=visitorAvailableSlot" method="post">
 <input type="hidden" name="salonId" value="" id="salId">
-<input type='text' id='slotDate' name='slotDate' value='' >
+<input type='text' id='slotDate' name='slotDate' value='' readonly="readonly">
 
 </form>
 

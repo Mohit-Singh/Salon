@@ -89,12 +89,20 @@ class SalonController
 //     	echo "<br>";
 //     	//echo date('Y-M-d H:m:s',$end);
 	echo $str;
-		$end=0;
-    	foreach($_POST['reqSlotTime'] as $value)
-     	{
-     		$end +=$value;
-     	}
-     	$slot=$this->_objSalonModel->availableSlot($str);
+	$requiredSlot=0;
+	if(isset($_POST['reqSlotTime']))
+	{
+	    foreach($_POST['reqSlotTime'] as $value)
+	    {
+		    $requiredSlot +=$value;
+	    }
+	}
+	$divFactor=$requiredSlot % 30;
+	$requiredSlot=$requiredSlot+(30-$divFactor);
+	
+     	$slot=$this->_objSalonModel->availableSlot($str);	
+	$reservedSlots=$this->_objSalonModel->reservedSlot($str);
+	
      	
      	$abc=$slot[0]["cal_start_time"];
      	echo "<br>";

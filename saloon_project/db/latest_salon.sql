@@ -27,9 +27,10 @@ CREATE TABLE `appointment` (
   `user_id` int(11) NOT NULL COMMENT 'customer id',
   `saloon_id` int(11) NOT NULL COMMENT 'saloon id',
   `slot_id` int(11) NOT NULL COMMENT 'available slot id',
-  `division` int(11) NOT NULL COMMENT 'available slot division no',
-  `service_type` int(11) NOT NULL COMMENT 'available sevice in the saloon',
+  `slot_start_time` varchar(50) NOT NULL COMMENT 'user appointment slot start time',
+  `service_type` text COMMENT 'services user request for',
   `status` enum('R','D','C') NOT NULL DEFAULT 'R' COMMENT 'R for request for service D for service done C for appointment cancle',
+  `slot_end_time` varchar(50) NOT NULL COMMENT 'user appointment slot end time',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -55,8 +56,14 @@ CREATE TABLE `available_slot` (
   `saloon_id` int(11) NOT NULL COMMENT 'saloon id',
   `start_time` varchar(50) NOT NULL COMMENT 'slot start time',
   `end_time` varchar(50) NOT NULL COMMENT 'slot end time',
+  `cal_start_time` varchar(50) NOT NULL COMMENT 'start time for calander',
+  `cal_end_time` varchar(50) NOT NULL COMMENT 'end time for calander',
+  `status` enum('A','D') NOT NULL DEFAULT 'A' COMMENT 'A for active D for deleted',
+  `slot_id` int(11) NOT NULL COMMENT 'client slot id',
+  `slot_title` varchar(70) NOT NULL COMMENT 'client slot title',
+  `all_day` varchar(70) DEFAULT NULL COMMENT 'slot all day event',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,6 +72,7 @@ CREATE TABLE `available_slot` (
 
 LOCK TABLES `available_slot` WRITE;
 /*!40000 ALTER TABLE `available_slot` DISABLE KEYS */;
+INSERT INTO `available_slot` VALUES (1,1,'1366959600','1366975800','1366939800','1366956000','A',1,'hello','false'),(2,1,'1367395200','1367429400','1367375400','1367409600','A',2,'Mohit','false'),(3,1,'1367404200','1367436600','1367384400','1367416800','A',3,'bbbbb','false');
 /*!40000 ALTER TABLE `available_slot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +90,7 @@ CREATE TABLE `saloon_master` (
   `owner_id` int(11) NOT NULL COMMENT 'saloon owner id',
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'last update by saloon owner',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +99,7 @@ CREATE TABLE `saloon_master` (
 
 LOCK TABLES `saloon_master` WRITE;
 /*!40000 ALTER TABLE `saloon_master` DISABLE KEYS */;
-INSERT INTO `saloon_master` VALUES (1,'GoodWill','jd dfjsdlkj sdlkfjs jlksdfj ',1,'2013-04-21 17:18:13'),(2,'abcd','kasd;askd sad kas ksd a',4,'2013-04-21 17:54:11');
+INSERT INTO `saloon_master` VALUES (1,'Good Will','Delhi ',1,'2013-04-26 16:54:06');
 /*!40000 ALTER TABLE `saloon_master` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -106,8 +114,9 @@ CREATE TABLE `saloon_services` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `service` varchar(50) NOT NULL COMMENT 'service provide by saloon',
   `saloon_id` int(11) NOT NULL COMMENT 'saloon id',
+  `duration` int(11) DEFAULT '30' COMMENT 'duration for service',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +125,7 @@ CREATE TABLE `saloon_services` (
 
 LOCK TABLES `saloon_services` WRITE;
 /*!40000 ALTER TABLE `saloon_services` DISABLE KEYS */;
-INSERT INTO `saloon_services` VALUES (1,'hairCutting',1),(2,'massage',1),(3,'coloring',1),(4,'hairCutting',2),(5,'coloring',2);
+INSERT INTO `saloon_services` VALUES (1,'hairCutting',1,30),(2,'massage',1,30),(3,'coloring',1,30);
 /*!40000 ALTER TABLE `saloon_services` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -138,7 +147,7 @@ CREATE TABLE `users_master` (
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'last updated by user',
   `created_on` date NOT NULL COMMENT 'time of creation user account',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -147,7 +156,7 @@ CREATE TABLE `users_master` (
 
 LOCK TABLES `users_master` WRITE;
 /*!40000 ALTER TABLE `users_master` DISABLE KEYS */;
-INSERT INTO `users_master` VALUES (1,'lookforward007@gmail.com','827ccb0eea8a706c4c34a16891f84e7b','Mohit','Singh','O','A','2013-04-21 13:08:09','2013-04-21'),(2,'','827ccb0eea8a706c4c34a16891f84e7b','',NULL,'O','A','2013-04-21 15:32:37','2013-04-21'),(3,'','827ccb0eea8a706c4c34a16891f84e7b','',NULL,'O','A','2013-04-21 15:32:47','2013-04-21'),(4,'mohit.singh@osscube.com','827ccb0eea8a706c4c34a16891f84e7b','Rahul','Singh','O','A','2013-04-21 17:53:31','2013-04-21');
+INSERT INTO `users_master` VALUES (1,'lookforward007@gmail.com','827ccb0eea8a706c4c34a16891f84e7b','Mohit','Singh','O','A','2013-04-26 16:53:03','2013-04-26'),(2,'saz@gmail.com','827ccb0eea8a706c4c34a16891f84e7b','Saz','Singh','C','A','2013-04-26 16:53:40','2013-04-26');
 /*!40000 ALTER TABLE `users_master` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -160,4 +169,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-22  0:12:11
+-- Dump completed on 2013-05-01 21:39:35

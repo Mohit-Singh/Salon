@@ -89,6 +89,16 @@ class SalonModel extends model{
     	return $result;
     }
     
+    public function reservedSlot($start)
+    {
+	$this->db->where(array("saloon_id='".$_POST['salonId']."' AND status='A' AND division > ".$start ),true);
+    	$this->db->From("appointment");
+    	$this->db->Select();
+    	$result = $this->db->resultArray();
+	echo $this->db->lastQuery();
+    	return $result;
+    }
+    
     public function getAllService()
     {
     	$this->db->Fields(array("service","duration"));
@@ -96,6 +106,7 @@ class SalonModel extends model{
     	$this->db->From("saloon_services");
     	$this->db->Select();
     	$result = $this->db->resultArray();
+	//echo $this->db->lastQuery();
     	return $result;
     }
     

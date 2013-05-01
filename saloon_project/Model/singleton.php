@@ -11,7 +11,7 @@ class DBConnection {
 	private static $instance;
 	private static $_host = "localhost";
 	private static $_user = "root";
-	private static $_password = "root";
+	private static $_password = "YES";
 	private static $_database = "salon";
 	private $_tableName = "";
 	private $_join = "";
